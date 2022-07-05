@@ -4,7 +4,7 @@ import edgeiq
 
 def main():
     obj_detect = edgeiq.ObjectDetection("alwaysai/ssd_mobilenet_v1_coco_2018_01_28_nano")
-    obj_detect.load(engine=edgeiq.Engine.DNN)
+    obj_detect.load(engine=edgeiq.Engine.TENSOR_RT)
 
     print("Loaded model:\n{}\n".format(obj_detect.model_id))
     print("Engine: {}".format(obj_detect.engine))

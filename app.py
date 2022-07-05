@@ -3,7 +3,7 @@ import edgeiq
 
 
 def main():
-    obj_detect = edgeiq.ObjectDetection("alwaysai/mobilenet_ssd")
+    obj_detect = edgeiq.ObjectDetection("alwaysai/ssd_mobilenet_v1_coco_2018_01_28_nano")
     obj_detect.load(engine=edgeiq.Engine.DNN)
 
     print("Loaded model:\n{}\n".format(obj_detect.model_id))
@@ -24,6 +24,7 @@ def main():
             while True:
                 frame = video_stream.read()
                 results = obj_detect.detect_objects(frame, confidence_level=.5)
+                results.predictions = edgeiq.filter_predictions_by_label(results.predictions, ['person', 'bicycle'])
                 frame = edgeiq.markup_image(
                         frame, results.predictions, colors=obj_detect.colors)
 
